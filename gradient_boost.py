@@ -37,7 +37,7 @@ class GradientBooster:
 
         # Train the Gradient Boosting Classifier
         gb_clf = GradientBoostingClassifier(
-            n_estimators=64,
+            n_estimators=512,
             learning_rate=self.learning_rate,
             max_depth=self.max_depth,
             random_state=42

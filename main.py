@@ -7,8 +7,9 @@ parser.add_argument("--model", type=str, default="gb", help="Model to use for cl
 parser.add_argument("--stages", type=str, default="1,2,3,4", help="Comma-separated list of sleep stages to analyze")
 parser.add_argument("--lr", type=float, default=2e-3, help="Learning rate for the model (DPL only)")
 parser.add_argument("--resample", type=bool, default=False, help="Whether to resample the data using SMOTE")
-parser.add_argument("--pca", type=bool, default=True, help="Whether to apply PCA (does not apply in DPL)")
+parser.add_argument("--pca", dest="pca", action="store_true", help="Whether to apply PCA (does not apply in DPL)")
 parser.add_argument("--epochs", type=int, default=100, help="Number of epochs to train the model  (DPL only)")
+parser.set_defaults(pca=False)
 args = parser.parse_args()
 
 
