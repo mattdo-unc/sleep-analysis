@@ -8,6 +8,9 @@ from sklearn.metrics import classification_report, accuracy_score
 from xgboost import XGBClassifier
 
 
+# TODO: subject IDs the same, old and new
+
+
 def read_data(file_name):
     # Read the .xlsx file using pandas
     data = pd.read_excel(file_name, engine='openpyxl')
@@ -46,7 +49,7 @@ def main():
     X = preprocess_features(X, method='standard')
 
     # Reduce dimensionality using PCA
-    X = reduce_dimensionality(X, n_components=0.95)
+    X = reduce_dimensionality(X, n_components=0.90)
 
     # Perform leave-one-subject-out cross-validation
     logo = LeaveOneGroupOut()
