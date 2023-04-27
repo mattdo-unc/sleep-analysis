@@ -20,7 +20,7 @@ class DeepLearning:
         self.weight_decay = 1e-4
 
     def train_and_display(self):
-        X = self.data.iloc[:, 1:]
+        X = self.data.iloc[:, 2:]
         y = self.data.iloc[:, 0]
 
         # Apply SMOTE to balance the class distribution
