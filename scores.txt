@@ -1,5 +1,6 @@
 SOME PROBLEMS WITH DATASET: MOST SUBJECTS DO NOT APPEAR IN STAGES 2, 3
 ONLY STAGES 0, 1 ARE AVAILABLE AS A WHOLE FOR CROSS VALIDATION.
+DETAILED SCORE MARKUP BELOW:
 
 syn.csv
 GBCV 0,1: 0.5968
@@ -23,8 +24,111 @@ RF T/T 2,3: 0.7417
 RF T/T 1,2: 0.7806
 RF T/T 0,1: 0.5701
 
-red.csv
-RFCV 0,1: 0.5876
+PCA 0.50 & XGBOOSTCV 0,1: 0.6735
+PCA 0.90 & XGBOOSTCV 0,1: 0.6184
+PCA 0.95 & XGBOOSTCV 0,1: 0.6254
 
-red_FC.csv
-RFCV 0,1: 0.6291
+PCA 0.50 & SVMCV 0,1: 0.6235
+PCA 0.90 & SVMCV 0,1: 0.6502
+PCA 0.95 & SVMCV 0,1: 0.6485
+(rbf kernel)
+
+PCA 0.50 & RFCV 0,1: 0.6511
+PCA 0.90 & RFCV 0,1: 0.6537
+PCA 0.95 & RFCV 0,1: 0.6563
+
+Note:
+[[TN, FP]
+ [FN, TP]]
+
+PCA 0.50 & XGBOOSTCV 0,1:
+Performance metrics (Leave One Group Out CV):
+  - Accuracy: 0.6735
+  - Precision (weighted): 0.7777
+  - Recall (weighted): 0.6735
+  - F1-score (weighted): 0.6685
+  - Confusion matrix:
+[[2.84615385 3.94871795]
+ [2.64102564 5.87179487]]
+
+PCA 0.70 & XGBOOSTCV 0,1:
+Performance metrics (Leave One Group Out CV):
+  - Accuracy: 0.6092
+  - Precision (weighted): 0.7978
+  - Recall (weighted): 0.6092
+  - F1-score (weighted): 0.6198
+  - Confusion matrix:
+[[2.38461538 3.53846154]
+ [2.66666667 5.41025641]]
+
+PCA 0.95 & XGBOOSTCV 0,1:
+Performance metrics (Leave One Group Out CV):
+  - Accuracy: 0.6235
+  - Precision (weighted): 0.7336
+  - Recall (weighted): 0.6235
+  - F1-score (weighted): 0.6076
+  - Confusion matrix:
+[[2.12820513 4.15384615]
+ [1.92307692 6.33333333]]
+
+PCA 0.50 & SVMCV 0,1:
+Performance metrics (Leave One Group Out CV):
+    - Accuracy: 0.6235
+    - Precision (weighted): 0.7336
+    - Recall (weighted): 0.6235
+    - F1-score (weighted): 0.6076
+    - Confusion matrix:
+[[2.12820513 4.15384615]
+ [1.92307692 6.33333333]]
+
+PCA 0.70 & SVMCV 0,1:
+Performance metrics (Leave One Group Out CV):
+    - Accuracy: 0.6512
+    - Precision (weighted): 0.7226
+    - Recall (weighted): 0.6512
+    - F1-score (weighted): 0.6385
+    - Confusion matrix:
+[[2.30769231 4.38461538]
+[2.1025641  6.35897436]]
+
+PCA 0.95 & SVMCV 0,1:
+Performance metrics (Leave One Group Out CV):
+    - Accuracy: 0.6485
+    - Precision (weighted): 0.7651
+    - Recall (weighted): 0.6485
+    - F1-score (weighted): 0.6302
+    - Confusion matrix:
+[[2.28205128 4.51282051]
+ [1.94871795 6.56410256]]
+
+PCA 0.50 & RFCV 0,1:
+Performance metrics (Leave One Group Out CV):
+    - Accuracy: 0.6511
+    - Precision (weighted): 0.6845
+    - Recall (weighted): 0.6511
+    - F1-score (weighted): 0.6167
+    - Confusion matrix:
+[[1.69230769 5.71794872]
+ [1.74358974 7.07692308]]
+
+PCA 0.70 & RFCV 0,1:
+Performance metrics (Leave One Group Out CV):
+    - Accuracy: 0.6535
+    - Precision (weighted): 0.5730
+    - Recall (weighted): 0.6535
+    - F1-score (weighted): 0.5853
+    - Confusion matrix:
+[[0.79487179 6.25641026]
+ [0.97435897 7.66666667]]
+
+
+PCA 0.95 & RFCV 0,1:
+Performance metrics (Leave One Group Out CV):
+    - Accuracy: 0.6485
+    - Precision (weighted): 0.7651
+    - Recall (weighted): 0.6485
+    - F1-score (weighted): 0.6302
+    - Confusion matrix:
+[[2.28205128 4.51282051]
+[1.94871795 6.56410256]]
+

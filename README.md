@@ -2,38 +2,47 @@
 
 The dataset is linked independently as it is too heavy to be stored in this repository.
 
-This project aims to analyze sleep stage data using different machine learning models. It takes input from a CSV file containing sleep stage data and applies one of the following models: Gradient Boosting (GB), Support Vector Machine (SVM), or Deep Learning (DPL). Optionally, you can apply PCA and SMOTE for preprocessing the data.
+This project aims to analyze sleep stage data using different machine learning models. It takes input from a CSV file containing sleep stage data and applies one of the following models: Gradient Boosting (GB), Gradient Boosting with Cross Validation (GBCV), Support Vector Machine (SVM), Support Vector Machine with Cross Validation (SVMCV), Random Forest (RF), or Random Forest with Cross Validation (RFCV). Optionally, you can apply PCA and SMOTE for preprocessing the data.
+
+Despite having code available for T/T models, our report focuses on the leave-one-group-out cross validation models. The entirety of the project has been kept in this repository for analysis purposes.
 
 ## Usage
 
-
 ```bash
-python your_script.py --data <path_to_data> --model <model> --stages <stages> --lr <learning_rate> --resample <resample> --pca <pca> --epochs <epochs>python your_script.py --data <path_to_data> --model <model> --stages <stages> --lr <learning_rate> --resample <resample> --pca <pca> --epochs <epochs>
+python your_script.py --data <path_to_data> --model <model> --stages <stages> --lr <learning_rate> --resample <resample> --max_depth <max_depth> --estimators <estimators> --pca <pca> --epochs <epochs>
 ```
-
 
 ## Arguments
 
-- `--data`: Path to the data file in CSV format. Default is `static_R_vector.csv`.
-- `--model`: Model to use for classification. Choose from `gb` (Gradient Boosting), `svm` (Support Vector Machine), or `dpl` (Deep Learning). Default is `gb`.
-- `--stages`: Comma-separated list of sleep stages to analyze. Example: `1,2,3,4`. Default is `1,2,3,4`.
-- `--lr`: Learning rate for the model (only applicable for DPL). Default is `2e-3`.
+- `--data`: Path to the data file in CSV format. Default is `static_R_vector_with_ID.csv`.
+- `--model`: Model to use for classification. Choose from `gb` (Gradient Boosting), `gbcv` (Gradient Boosting with Cross Validation), `svm` (Support Vector Machine), `svmcv` (Support Vector Machine with Cross Validation), `rf` (Random Forest), or `rfcv` (Random Forest with Cross Validation). Default is `gb`.
+- `--stages`: Comma-separated list of sleep stages to analyze. Example: `0,1,2,3`. Default is `0,1,2,3`.
+- `--lr`: Learning rate for the model (only applicable for GB and GBCV). Default is `1e-2`.
 - `--resample`: Whether to resample the data using SMOTE. Set to `True` or `False`. Default is `False`.
-- `--pca`: Whether to apply PCA (not applicable for DPL). Set to `True` or `False`. Default is `True`.
+- `--max_depth`: Maximum depth of the decision tree. Default is `3`.
+- `--estimators`: Number of estimators for the model. Default is `256`.
+- `--pca`: Whether to apply PCA (not applicable for DPL). Set to `True` or `False`. Default is `False`.
 - `--epochs`: Number of epochs to train the model (only applicable for DPL). Default is `100`.
 
-## Example
+View the `--help` command for additional usages.
+
+
+## Sleep Stage Data Distribution
+
+We wrote the following tool to help visualize the distribution of sleep stages in the given dataset. It reads the sleep stage data from a CSV file and creates a bar plot displaying the number of instances per sleep stage.
+
+### Usage
+
+Run the script `data_distribution.py` and enter the path to the CSV file when prompted:
 
 ```bash
-python your_script.py --data "static_R_vector.csv" --model "gb" --stages "1,2,3,4" --lr 2e-3 --resample True --pca True --epochs 100
+python data_distribution.py --data <path_to_data>
 ```
 
-This example will run the script with the following settings:
-- Data file: `static_R_vector.csv`
-- Model: Gradient Boosting (GB)
-- Sleep stages: 1, 2, 3, and 4
-- Learning rate: 2e-3 (not applicable for GB)
-- Apply SMOTE resampling: True
-- Apply PCA: True
-- Number of epochs: 100 (not applicable for GB)
+Example:
 
+```
+python data_distribution.py --data "static_R_vector_with_ID.csv"
+```
+
+This will display a bar plot showing the number of instances for each sleep stage in the selected dataset.

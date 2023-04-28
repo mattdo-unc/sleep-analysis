@@ -10,7 +10,6 @@ parser.add_argument("--resample", type=bool, default=False, help="Whether to res
 parser.add_argument("--max_depth", type=int, default=3, help="Maximum depth of the decision tree")
 parser.add_argument("--estimators", type=int, default=256, help="Number of estimators for the model")
 parser.add_argument("--pca", dest="pca", action="store_true", help="Whether to apply PCA (does not apply in DPL)")
-parser.add_argument("--epochs", type=int, default=100, help="Number of epochs to train the model  (DPL only)")
 parser.set_defaults(pca=False)
 args = parser.parse_args()
 
@@ -73,14 +72,6 @@ def main(params):
                             pca=params.pca
                             )
         rf.train_and_display()
-    elif params.model == "dpl":
-        from dpl import DeepLearning
-        dl = DeepLearning(data,
-                          learning_rate=params.lr,
-                          resample=params.resample,
-                          epochs=params.epochs
-                          )
-        dl.train_and_display()
     else:
         raise ValueError("Invalid model name. Please choose either 'gb' or 'svm' or 'dpl.")
 

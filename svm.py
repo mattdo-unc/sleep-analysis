@@ -27,7 +27,7 @@ class SVM:
 
         # Apply PCA for dimensionality reduction
         if self.pca:
-            pca = PCA(n_components=0.95)
+            pca = PCA(n_components=0.90)
             X = pca.fit_transform(X)
 
         # Split the data into training and testing sets
