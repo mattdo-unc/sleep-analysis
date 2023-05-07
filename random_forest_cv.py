@@ -1,18 +1,16 @@
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix
 from sklearn.model_selection import LeaveOneGroupOut
 
 
 class RFClassifierCV:
-    def __init__(self, data, n_estimators=256, max_depth=3, resample=False, pca=False):
+    def __init__(self, data, n_estimators=256, max_depth=3, pca=False):
         self.data = data
         self.n_estimators = n_estimators
         self.max_depth = max_depth
-        self.resample = resample
         self.pca = pca
 
     def train_and_display(self):
@@ -20,18 +18,13 @@ class RFClassifierCV:
         y = self.data.iloc[:, 0]
         groups = self.data.iloc[:, 1]
 
-        # Apply SMOTE to balance the class distribution
-        if self.resample:
-            smote = SMOTE()
-            X, y = smote.fit_resample(X, y)
-
         # Normalize the features
         scaler = StandardScaler()
         X = scaler.fit_transform(X)
 
         # Apply PCA for dimensionality reduction
         if self.pca:
-            pca = PCA(n_components=0.50)
+            pca = PCA(n_components=0.95)
             X = pca.fit_transform(X)
 
         # Perform Leave-One-Group-Out cross-validation
@@ -46,6 +39,7 @@ class RFClassifierCV:
             rf_clf = RandomForestClassifier(
                 n_estimators=self.n_estimators,
                 max_depth=self.max_depth,
+                class_weight='balanced',
                 random_state=42
             )
 

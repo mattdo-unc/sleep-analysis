@@ -1,28 +1,21 @@
 from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import accuracy_score
 
 
 class GradientBoost:
-    def __init__(self, data, n_estimators=256, learning_rate=1e-2, max_depth=3, resample=False, pca=False):
+    def __init__(self, data, n_estimators=256, learning_rate=1e-2, max_depth=3, pca=False):
         self.data = data
         self.n_estimators = n_estimators
         self.learning_rate = learning_rate
         self.max_depth = max_depth
-        self.resample = resample
         self.pca = pca
 
     def train_and_display(self):
         X = self.data.iloc[:, 2:]
         y = self.data.iloc[:, 0]
-
-        # Apply SMOTE to balance the class distribution
-        if self.resample:
-            smote = SMOTE()
-            X, y = smote.fit_resample(X, y)
 
         # Normalize the features
         scaler = StandardScaler()

@@ -8,9 +8,8 @@ from sklearn.model_selection import LeaveOneGroupOut
 
 
 class SVMCV:
-    def __init__(self, data, resample=False, pca=False):
+    def __init__(self, data, pca=False):
         self.data = data
-        self.resample = resample
         self.pca = pca
 
     def train_and_display(self):

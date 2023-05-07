@@ -7,21 +7,15 @@ from sklearn.metrics import accuracy_score
 
 
 class RFClassifier:
-    def __init__(self, data, n_estimators=256, max_depth=3, resample=False, pca=False):
+    def __init__(self, data, n_estimators=256, max_depth=3, pca=False):
         self.data = data
         self.n_estimators = n_estimators
         self.max_depth = max_depth
-        self.resample = resample
         self.pca = pca
 
     def train_and_display(self):
         X = self.data.iloc[:, 2:]
         y = self.data.iloc[:, 0]
-
-        # Apply SMOTE to balance the class distribution
-        if self.resample:
-            smote = SMOTE()
-            X, y = smote.fit_resample(X, y)
 
         # Normalize the features
         scaler = StandardScaler()

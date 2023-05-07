@@ -7,9 +7,8 @@ from sklearn.metrics import accuracy_score
 
 
 class SVM:
-    def __init__(self, data, resample=False, pca=False):
+    def __init__(self, data, pca=False):
         self.data = data
-        self.resample = resample
         self.pca = pca
 
     def train_and_display(self):

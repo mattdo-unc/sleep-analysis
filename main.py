@@ -6,7 +6,6 @@ parser.add_argument("--data", type=str, default="static_R_vector_with_ID.csv", h
 parser.add_argument("--model", type=str, default="gb", help="Model to use for classification")
 parser.add_argument("--stages", type=str, default="0,1,2,3", help="Comma-separated list of sleep stages to analyze")
 parser.add_argument("--lr", type=float, default=1e-2, help="Learning rate for the model (DPL only)")
-parser.add_argument("--resample", type=bool, default=False, help="Whether to resample the data using SMOTE")
 parser.add_argument("--max_depth", type=int, default=3, help="Maximum depth of the decision tree")
 parser.add_argument("--estimators", type=int, default=256, help="Number of estimators for the model")
 parser.add_argument("--pca", dest="pca", action="store_true", help="Whether to apply PCA (does not apply in DPL)")
@@ -30,23 +29,20 @@ def main(params):
                            n_estimators=params.estimators,
                            learning_rate=params.lr,
                            max_depth=params.max_depth,
-                           resample=params.resample,
                            pca=params.pca
                            )
         gb.train_and_display()
     elif params.model == "gbcv":
         from gradient_boost_cv import XGBoostCV
         gb = XGBoostCV(data,
-                             learning_rate=params.lr,
-                             max_depth=params.max_depth,
-                             resample=params.resample,
-                             pca=params.pca
-                             )
+                       learning_rate=params.lr,
+                       max_depth=params.max_depth,
+                       pca=params.pca
+                       )
         gb.train_and_display()
     elif params.model == "svm":
         from svm import SVM
         svm = SVM(data,
-                  resample=params.resample,
                   pca=params.pca
                   )
         svm.train_and_display()
@@ -59,7 +55,6 @@ def main(params):
         rf = RFClassifier(data,
                           n_estimators=params.estimators,
                           max_depth=params.max_depth,
-                          resample=params.resample,
                           pca=params.pca
                           )
         rf.train_and_display()
@@ -68,7 +63,6 @@ def main(params):
         rf = RFClassifierCV(data,
                             n_estimators=params.estimators,
                             max_depth=params.max_depth,
-                            resample=params.resample,
                             pca=params.pca
                             )
         rf.train_and_display()
