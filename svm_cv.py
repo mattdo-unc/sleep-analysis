@@ -1,7 +1,6 @@
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-from imblearn.over_sampling import SMOTE
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 from sklearn.model_selection import LeaveOneGroupOut
@@ -17,19 +16,15 @@ class SVMCV:
         y = self.data.iloc[:, 0]
         groups = self.data.iloc[:, 1]
 
-        # Apply SMOTE to balance the class distribution
-        if self.resample:
-            smote = SMOTE()
-            X, y = smote.fit_resample(X, y)
-
         # Normalize the features
         scaler = StandardScaler()
         X = scaler.fit_transform(X)
 
-        # Apply PCA for dimensionality reduction
         if self.pca:
-            pca = PCA(n_components=0.70)
+            pca = PCA(n_components=0.90)
             X = pca.fit_transform(X)
+            print(f"Original number of dimensions: {self.data.shape[1] - 2}")
+            print(f"Reduced number of dimensions after PCA: {pca.n_components_}")
 
         logo = LeaveOneGroupOut()
         metrics = []

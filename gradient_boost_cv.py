@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.decomposition import PCA
+from imblearn.over_sampling import SMOTE
 from sklearn.preprocessing import StandardScaler
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
@@ -18,6 +19,9 @@ class XGBoostCV:
         X = self.data.iloc[:, 2:]
         y = self.data.iloc[:, 0]
         groups = self.data.iloc[:, 1]
+
+        sm = SMOTE(random_state=42)
+        X, y = sm.fit_resample(X, y)
 
         # Normalize the features
         scaler = StandardScaler()

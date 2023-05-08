@@ -48,7 +48,7 @@ def main(params):
         svm.train_and_display()
     elif params.model == "svmcv":
         from svm_cv import SVMCV
-        svmcv = SVMCV(data, resample=params.resample, pca=params.pca)
+        svmcv = SVMCV(data, pca=params.pca)
         svmcv.train_and_display()
     elif params.model == "rf":
         from random_forest import RFClassifier
