@@ -3,7 +3,7 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, roc_auc_score
-from sklearn.model_selection import LeavePGroupsOut
+from sklearn.model_selection import LeaveOneGroupOut
 
 
 class RFClassifierCV:
@@ -30,10 +30,10 @@ class RFClassifierCV:
             print(f"Reduced number of dimensions after PCA: {pca.n_components_}")
 
         # Perform Leave-P-Groups-Out cross-validation
-        lpgo = LeavePGroupsOut(n_groups=3)
+        logo = LeaveOneGroupOut()
         metrics = []
 
-        for train_index, test_index in lpgo.split(X, y, groups):
+        for train_index, test_index in logo.split(X, y, groups):
             X_train, X_test = X[train_index], X[test_index]
             y_train, y_test = y[train_index], y[test_index]
 
@@ -48,15 +48,13 @@ class RFClassifierCV:
 
             # Make predictions and evaluate the model
             y_pred = rf_clf.predict(X_test)
-            y_proba = rf_clf.predict_proba(X_test)
             accuracy = accuracy_score(y_test, y_pred)
             precision = precision_score(y_test, y_pred, average='weighted')
             recall = recall_score(y_test, y_pred, average='weighted')
             f1 = f1_score(y_test, y_pred, average='weighted')
             conf_mat = confusion_matrix(y_test, y_pred)
-            roc_auc = roc_auc_score(y_test, y_proba, average='weighted', multi_class='ovr')
 
-            metrics.append((accuracy, precision, recall, f1, roc_auc, conf_mat))
+            metrics.append((accuracy, precision, recall, f1, conf_mat))
 
         mean_metrics = np.mean(metrics, axis=0)
         mean_accuracy, mean_precision, mean_recall, mean_f1, mean_auc, mean_conf_mat = mean_metrics
@@ -66,5 +64,4 @@ class RFClassifierCV:
         print(f"  - Precision (weighted): {mean_precision:.4f}")
         print(f"  - Recall (weighted): {mean_recall:.4f}")
         print(f"  - F1-score (weighted): {mean_f1:.4f}")
-        print(f"  - ROC AUC (OvO): {mean_auc:.4f}")
         print(f"  - Confusion matrix:\n{mean_conf_mat}")
